@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Movie catalog</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="styles.css" type="text/css" rel="stylesheet">
+        <script src="loadJSONDoc.js"></script>
+
+        <script>
+			/***********************************************************************
+			* Initial set up
+			************************************************************************/
+			//add your code here
+            // above this script tag add the loadJSONDOc.js script so we have access to that function
+            // call and parse the json from the movies.json file with the help of loadJSON method.
+			var moviesArr = JSON.parse(loadJSON('movies.json'));
+
+            // grab the movies array from the loadJSON result. This is where we get the array of
+            // all movie objects.
+            moviesArr = moviesArr.movies.movie;
+
+            /************************************************************************
+             * This function takes a movie rating as the parameter. It accesses all
+             * movies in the moviesArr. It then generates another array that stores 
+             * only the movies whose ratings match the parameter of the function. 
+             * At last, the function calles the display_movies function to display
+             * all filtered movies in a grid.
+             ************************************************************************/
+
+            function filter_movies(rating) {
+                //add your code here to complete the function
+
+                // create empty array to store filtered movies
+				var filteredMoviesArr = [];
+
+                // loop through all movies
+                moviesArr.forEach(function(value) {
+
+                    // check the rating if the rating matches the param add it to our filtered array.
+                    if (value.rating === rating) {
+                        filteredMoviesArr.push(value);
+                    }
+                });
+
+                // pass filtered array to display movies to display filtered movies.
+                display_movies(filteredMoviesArr);
+            }
+
+            /************************************************************************** 
+			* Use window object and the onload event handler to display PG-13 movies
+			* when the page loads initially
+			************************************************************************/
+            //add your code here
+
+            // on initial load force load pg-13 rating movies
+            window.onload = function () {
+                filter_movies('PG-13')
+            };
+            
+            /*************************************************************************** 
+			* This function takes an array of movies as the parameter. Each element in the
+            * array is an JSON object that contains deails of the movie. The function then
+            * displays the details of all movies in the array with a grid.
+            ************************************************************************/
+            function display_movies(movies) {
+                var moviegrid = "";
+                for (var i = 0; i < movies.length; i++) {
+                    //retrieve movie details and store them in variables to be displayed
+                    title = movies[i].title;
+                    rating = movies[i].rating;
+                    release_date = movies[i]["release date"];
+                    poster = movies[i].poster;
+
+                    //start a new row in the grid
+                    if (i % 6 == 0) {
+                        moviegrid += "<div class='row'>";
+                    }
+                    //display a movie inside a div block
+                    moviegrid += "<div class='col'><p><img src='" + poster + "'><span>" + title + "<br>Rated " +
+                            rating + "<br>" + release_date + "</span></p></div>";
+
+                    //close the row in the grid
+                    if (i % 6 == 5) {
+                        moviegrid += "</div>";
+                    }
+                }
+                //display movies in a div block with the id "moviegrid".
+                document.getElementById('moviegrid').innerHTML = moviegrid;
+            }
+        </script>
+    </head>
+    <body>
+        <h2>MOVIE CATALOG</h2>
+        <div>
+            <strong>Choose a genre</strong>:
+            <input name="Genre" onClick="filter_movies('G')" type="radio" value="Computer"> G
+            <input name="Genre" onClick="filter_movies('PG')" type="radio" value="Fantasy"> PG
+            <input name="Genre" onClick="filter_movies('PG-13')" type="radio" value="Romance" checked="checked"> PG-13
+            <input name="Genre" onClick="filter_movies('R')" type="radio" value="Science Fiction"> R
+            <input name="Genre" onClick="filter_movies('NR')" type="radio" value="Science Fiction"> NR
+        </div>
+        <div id="moviegrid"></div>
+    </body>
+</html>
