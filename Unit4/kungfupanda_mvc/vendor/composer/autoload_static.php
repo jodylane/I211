@@ -7,12 +7,16 @@ namespace Composer\Autoload;
 class ComposerStaticInit1ed4181412cde2b9d71094c9d77888ce
 {
     public static $classMap = array (
+        'ComposerAutoloaderInit1ed4181412cde2b9d71094c9d77888ce' => __DIR__ . '/..' . '/composer/autoload_real.php',
+        'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/ClassLoader.php',
+        'Composer\\Autoload\\ComposerStaticInit1ed4181412cde2b9d71094c9d77888ce' => __DIR__ . '/..' . '/composer/autoload_static.php',
         'Database' => __DIR__ . '/../..' . '/application/database.class.php',
         'Dispatcher' => __DIR__ . '/../..' . '/application/dispatcher.class.php',
         'IndexView' => __DIR__ . '/../..' . '/views/index_view.class.php',
         'Movie' => __DIR__ . '/../..' . '/models/movie.class.php',
         'MovieController' => __DIR__ . '/../..' . '/controllers/movie_controller.class.php',
         'MovieDetail' => __DIR__ . '/../..' . '/views/movie/detail/movie_detail.class.php',
+        'MovieEdit' => __DIR__ . '/../..' . '/views/movie/edit/movie_edit.class.php',
         'MovieError' => __DIR__ . '/../..' . '/views/movie/error/movie_error.class.php',
         'MovieIndex' => __DIR__ . '/../..' . '/views/movie/index/movie_index.class.php',
         'MovieIndexView' => __DIR__ . '/../..' . '/views/movie/movie_index_view.class.php',

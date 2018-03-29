@@ -183,4 +183,32 @@ class MovieModel {
         return $ratings;
     }
 
+    public function update_movie($id) {
+        //if the script did not received post data, display an error message and then terminite the script immediately
+        if (!filter_has_var(INPUT_POST, 'title') ||
+            !filter_has_var(INPUT_POST, 'rating') ||
+            !filter_has_var(INPUT_POST, 'release_date') ||
+            !filter_has_var(INPUT_POST, 'director') ||
+            !filter_has_var(INPUT_POST, 'image') ||
+            !filter_has_var(INPUT_POST, 'description')) {
+
+            return false;
+        }
+
+        //retrieve data for the new movie; data are sanitized and escaped for security.
+        $title = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING)));
+        $rating = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'rating', FILTER_SANITIZE_STRING)));
+        $release_date = $this->dbConnection->real_escape_string(filter_input(INPUT_POST, 'release_date', FILTER_DEFAULT));
+        $director = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'director', FILTER_SANITIZE_STRING)));
+        $image = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'image', FILTER_SANITIZE_STRING)));
+        $description = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING)));
+
+        //query string for update
+        $sql = "UPDATE " . $this->tblMovie .
+            " SET title='$title', rating='$rating', release_date='$release_date', director='$director', "
+            . "image='$image', description='$description' WHERE id='$id'";
+
+        //execute the query
+        return $this->dbConnection->query($sql);
+    }
 }

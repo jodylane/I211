@@ -53,9 +53,48 @@ class MovieController {
         $view->display($movie);
     }
 
+    //display a movie in a form for editing
+    public function edit($id) {
+        //retrieve the specific movie
+        $movie = $this->movie_model->view_movie($id);
+
+        if (!$movie) {
+            //display an error
+            $message = "There was a problem displaying the movie id='" . $id . "'.";
+            $this->error($message);
+            return;
+        }
+
+        $view = new MovieEdit();
+        $view->display($movie);
+    }
+
+    //update a movie in the database
+    public function update($id) {
+        //update the movie
+        $update = $this->movie_model->update_movie($id);
+        if (!$update) {
+            //handle errors
+            $message = "There was a problem updating the movie id='" . $id . "'.";
+            $this->error($message);
+            return;
+        }
+
+        //display the updateed movie details
+        $confirm = "The movie was successfully updated.";
+        $movie = $this->movie_model->view_movie($id);
+
+        $view = new MovieDetail();
+        $view->display($movie, $confirm);
+    }
+
     //handle an error
     public function error($message) {
+        // create aan object of the Error class
+        $error = new MovieError();
 
+        // display the error page
+        $error->display($message);
     }
 	
     //search movies
