@@ -2,7 +2,7 @@
 /*
  * Author: Louie Zhu
  * Date: Mar 6, 2016
- * Name: book_index.class.php
+ * Name: index.class.php
  * Description: This class defines the method "display" that displays the home page.
  */
 

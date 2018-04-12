@@ -2,7 +2,7 @@
 /*
  * Author: Louie Zhu
  * Date: 2/28/2016
- * File: index.class.php
+ * File: book_index.class.php
  * Description: this script defines the ListMovie class. The class contains a method named display, which
  *     accepts an array of Movie objects and displays them in a grid.
  * 
